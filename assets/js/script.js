@@ -1,40 +1,6 @@
 const containerEl = $("#container");
 
-function addTimeBlockFromNow (hr=0){
-    hr = hr>12 ? hr-12 : hr;
-    const row = $("<div>");
-    containerEl.append(row);
-
-    const timeBlock = $("<div>");
-    timeBlock.addClass("time-block d-flex justify-content-center");
-
-    const hourEl = $("<div>");
-    hourEl.addClass("hour");
-    let am_pm = dayjs().format('A');
-    hourEl.text(()=>{
-        let hour = parseInt(dayjs().format('h'))+hr
-        if (hour>12) {
-            hour = hour-12
-            am_pm = dayjs().format('A')==="AM" ? "PM" : "AM"
-        } return `${hour}${am_pm}`
-    });
-    timeBlock.append(hourEl);
-
-    const descriptionEl = $("<textarea>");
-    descriptionEl.addClass("description");
-    descriptionEl.text("DESCRIPTION");
-    timeBlock.append(descriptionEl);
-
-    const saveEl = $("<button>");
-    saveEl.addClass("saveBtn");
-    saveEl.text("SAVE");
-    timeBlock.append(saveEl);
-
-    row.append(timeBlock)
-    return row;
-}
-
-function addTimeBlock (hr=1){
+function addTimeBlock (hr=0, type=""){
     hr = hr>12 ? hr-12 : hr || 12;
     
     const row = $("<div>");
@@ -51,7 +17,9 @@ function addTimeBlock (hr=1){
         if (hour>12) {
             hour = hour-12
             am_pm = dayjs().format('A')==="AM" ? "PM" : "AM"
-        } return `${hr}${am_pm}`
+        }
+        hr=type==="now"?hour:hr
+        return `${hr}${am_pm}`
     });
     timeBlock.append(hourEl);
 
@@ -69,22 +37,25 @@ function addTimeBlock (hr=1){
     return row;
 }
 
-function buildRows(size = 1, cb="", index = 0) {
-    if(index<size){
-        switch(cb){
-            case "addTimeBlockFromNow":
-                containerEl.append(addTimeBlockFromNow(index))
-                break;
-            case "addTimeBlock":
-                containerEl.append(addTimeBlock(index))
+function buildRows(type="", hours = 1, index = 0) {
+    hours = parseInt(hours) || 1;
+    if(index<hours){
+        switch(type){           
+            case scheduleType.business:
+                containerEl.append(addTimeBlock(index+9, type))
+                hours=9;
                 break;            
             default:
-                //containerEl.append(addTimeBlock(index))
+                containerEl.append(addTimeBlock(index, type))
                 break;
         }
-        buildRows(size, cb, index+1)
+        buildRows(type, hours, index+1)
     }
 }
 
-//buildRows(24, "addTimeBlockFromNow")
-buildRows(24, "addTimeBlock")
+scheduleType = {
+    business:"business",
+    day:"day",
+    now:"now",}
+
+buildRows(scheduleType.business, 24)
