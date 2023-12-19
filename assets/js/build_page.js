@@ -1,5 +1,12 @@
 const containerEl = $("#container");
-let am_pm = dayjs("A")
+const today = new Date();
+const HOUR = today.getHours();
+let am_pm = dayjs("A").isValid() ? dayjs("A") : am_pmFunc(HOUR);
+function am_pmFunc(hour)
+{
+    if(hour<12){return "AM"} else {return "PM"}
+}
+
 function addTimeBlock (type="", hr=0){
     const row = $("<div>");
     containerEl.append(row);
@@ -9,24 +16,16 @@ function addTimeBlock (type="", hr=0){
     
     const hourEl = $("<div>");
     hourEl.addClass("hour");
+
     if (type!==scheduleType.now && hr<12)am_pm="AM"
     while(hr>12)
     {hr=hr-12}
-    console.log(hr)
     hourEl.text(()=>{
         let hour = parseInt(dayjs().format('h'))+hr;
         if(type!==scheduleType.now) hour = hr || 12;
-        while(hour>12)
-        {hour=hour-12}
-        console.log("hour is: ", hour)
-        
-        if (hour===12 && hr !== 0){
-            am_pm = am_pm==="AM"?"PM":"AM"
-            //console.log(am_pm)
-        }
+        while(hour>12) hour=hour-12
+        if (hour===12 && hr !== 0) am_pm = am_pm==="AM"?"PM":"AM"
         hr=type===scheduleType.now?hour:hr
-        console.log(`hr is: `, hr)
-        console.log(am_pm)
         return `${hr||12}${am_pm}`
     });
     timeBlock.append(hourEl);
