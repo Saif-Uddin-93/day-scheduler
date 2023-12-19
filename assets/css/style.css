@@ -77,9 +77,10 @@ header {
   color: white;
   /* height: 80px; */
   width: 10vw;
-  & :hover {
+
+  &:hover {
     font-size: 20px;
-    background-color: #d50606;
+    background-color: #d50606 !important;
     transition: all 0.3s ease-in-out;
   }
 }
