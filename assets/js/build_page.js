@@ -1,11 +1,11 @@
 const containerEl = $("#container");
-const today = new Date();
-const HOUR = today.getHours();
-let am_pm = dayjs("A").isValid() ? dayjs("A") : am_pmFunc(HOUR);
-function am_pmFunc(hour)
+//const today = new Date();
+//const HOUR = today.getHours();
+/* function am_pmFunc(hour)
 {
     if(hour<12){return "AM"} else {return "PM"}
-}
+} */
+let am_pm = dayjs().format("A")
 
 function addTimeBlock (type="", hr=0){
     const row = $("<div>");
