@@ -10,6 +10,7 @@
       integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" 
       crossorigin="anonymous"
       />
+    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"> -->
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
@@ -30,11 +31,33 @@
       <p class="lead d-flex justify-content-center">A simple calendar app for scheduling your work day</p>
       <p id="currentDay" class="lead d-flex justify-content-center"></p>
     </header>
+    <div class="dropdown d-flex flex-column align-items-center">
+      <Label for="dropdownMenuButton">Schedule Types:</Label>
+      <div class="d-flex align-items-center">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            --- Types ---
+        </button>
+        <ul class="dropdown-menu">
+            <li class="dropdown-item" data-type="business">Business</li>
+            <li class="dropdown-item" data-type="day">Day</li>
+            <li class="dropdown-item" data-type="now">From Now</li>
+        </ul>
+        <label for="hours" class="hours">hours: 
+          <input type="number" min=1 name="hours" id="hours" class="hours">
+          <button class="ms-2 submit">Submit</button>
+        </label>
+      </div>
+    </div>
     <div id="container" class="container d-flex flex-wrap justify-content-center">
       <!-- Timeblocks go here -->
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    
     <script src="./assets/js/build_page.js"></script>
     <script src="./assets/js/logic.js"></script>
   </body>

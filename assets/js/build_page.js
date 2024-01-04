@@ -61,9 +61,10 @@ function buildRows(type="", hours = 1, index = 0) {
     }
 }
 
-scheduleType = {
+const scheduleType = {
     business:"business",
     day:"day",
-    now:"now",}
+    now:"now",
+}
 
-buildRows(scheduleType.business, 24)
+buildRows(scheduleType.business)
