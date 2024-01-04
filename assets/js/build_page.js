@@ -7,7 +7,7 @@ const containerEl = $("#container");
 } */
 let am_pm = dayjs().format("A")
 
-function addTimeBlock (type="", hr=0){
+function addTimeBlock (type="", hr=0, index=hr){
     const row = $("<div>");
     containerEl.append(row);
     
@@ -32,11 +32,13 @@ function addTimeBlock (type="", hr=0){
     
     const descriptionEl = $("<textarea>");
     descriptionEl.addClass("description");
+    descriptionEl.attr("data-index", index);
     descriptionEl.text("DESCRIPTION");
     timeBlock.append(descriptionEl);
     
     const saveEl = $("<button>");
-    saveEl.addClass("saveBtn");
+    saveEl.addClass("save-btn");
+    saveEl.attr("data-index", index);
     saveEl.text("SAVE");
     timeBlock.append(saveEl);
 
