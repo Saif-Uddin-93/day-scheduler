@@ -29,16 +29,25 @@ function addTimeBlock (type="", hr=0, index=hr){
         return `${hr||12}${am_pm}`
     });
     timeBlock.append(hourEl);
+
+    let dataIndex = index;
+   
+    if (type===scheduleType.now && am_pm == "AM") {
+        dataIndex = index + parseInt(dayjs().format('h'));
+    }
+    if (type===scheduleType.now && am_pm == "PM") { 
+        dataIndex = index + parseInt(dayjs().format('h')) + 12;
+    }
     
     const descriptionEl = $("<textarea>");
     descriptionEl.addClass("description");
-    descriptionEl.attr("data-index", index);
+    descriptionEl.attr("data-index", dataIndex);
     descriptionEl.text("DESCRIPTION");
     timeBlock.append(descriptionEl);
     
     const saveEl = $("<button>");
     saveEl.addClass("save-btn");
-    saveEl.attr("data-index", index);
+    saveEl.attr("data-index", dataIndex);
     saveEl.text("SAVE");
     timeBlock.append(saveEl);
 
