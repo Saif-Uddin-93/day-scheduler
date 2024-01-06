@@ -5,7 +5,7 @@ const containerEl = $("#container");
 {
     if(hour<12){return "AM"} else {return "PM"}
 } */
-let am_pm = dayjs().format("A")
+let am_pm = dayjs().format("A");
 
 function addTimeBlock (type="", hr=0, index=hr){
     const row = $("<div>");
@@ -46,15 +46,14 @@ function addTimeBlock (type="", hr=0, index=hr){
     return row
 }
 
-function buildRows(type="", hours = 1, index = 0) {
-    hours = parseInt(hours) || 1;
+function buildRows(type="", hours=1, index = 0) {
     if(index<hours){
         switch(type){
             case scheduleType.business:
-                hours=9;
-                const startTime=9
+                const startTime=9;
+                hours = startTime;
                 containerEl.append(addTimeBlock(type, index+startTime))
-                break;            
+                break;
             default:
                 containerEl.append(addTimeBlock(type, index))
                 break;
@@ -69,4 +68,25 @@ const scheduleType = {
     now:"now",
 }
 
-buildRows(scheduleType.business)
+buildRows(scheduleType.business);
+addSaveBtnEvent();
+
+// add event listener. save day description with correct index
+let toSave;
+function addSaveBtnEvent(){
+    $('.save-btn').on('click', (eventObj)=>{
+        console.log("save");
+        const saveIndex = parseInt(eventObj.target.dataset.index);
+        const description = document.querySelectorAll(".description");
+        for (let i = 0; i < Infinity; i++) {
+            const descriptionIndex = parseInt(description[i].dataset.index);
+            if(descriptionIndex===saveIndex){
+                toSave = description[i].value;
+                console.log(description[i]);
+                console.log(toSave);
+                //localStorage.setItem();
+                return
+            }
+        }
+    })
+}
