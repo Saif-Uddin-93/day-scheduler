@@ -17,19 +17,20 @@ function addTimeBlock (type="", hr=0, index=hr){
     const hourEl = $("<div>");
     hourEl.addClass("hour");
 
-    if (type!==scheduleType.now && hr<12)am_pm="AM"
+    if (type!==scheduleType.now && hr<12)am_pm="AM" ////////////////////////
     while(hr>12)
     {hr=hr-12}
     hourEl.text(()=>{
         let hour = parseInt(dayjs().format('h'))+hr;
         if(type!==scheduleType.now) hour = hr || 12;
         while(hour>12) hour=hour-12
-        if (hour===12 && hr !== 0) am_pm = am_pm==="AM"?"PM":"AM"
+        if (hour===12 && hr !== 0) am_pm = am_pm==="AM"?"PM":"AM" /////////
         hr=type===scheduleType.now?hour:hr
         return `${hr||12}${am_pm}`
     });
     timeBlock.append(hourEl);
 
+    // variable to keep track of the hour from the start of the day
     let dataIndex = index;
    
     if (type===scheduleType.now && am_pm == "AM") {
@@ -67,6 +68,7 @@ function buildRows(type="", hours=1, index = 0) {
                 containerEl.append(addTimeBlock(type, index))
                 break;
         }
+        // build next row and increment index
         buildRows(type, hours, index+1)
     }
 }
@@ -78,24 +80,3 @@ const scheduleType = {
 }
 
 buildRows(scheduleType.business);
-addSaveBtnEvent();
-
-// add event listener. save day description with correct index
-let toSave;
-function addSaveBtnEvent(){
-    $('.save-btn').on('click', (eventObj)=>{
-        console.log("save");
-        const saveIndex = parseInt(eventObj.target.dataset.index);
-        const description = document.querySelectorAll(".description");
-        for (let i = 0; i < Infinity; i++) {
-            const descriptionIndex = parseInt(description[i].dataset.index);
-            if(descriptionIndex===saveIndex){
-                toSave = description[i].value;
-                console.log(description[i]);
-                console.log(toSave);
-                //localStorage.setItem();
-                return
-            }
-        }
-    })
-}
