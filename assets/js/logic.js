@@ -1,32 +1,20 @@
+// get schedule from dropdown list
 let schedule;
-
 $('.dropdown-item').on('click', function (eventObj){
     $("#dropdownMenuButton").text(eventObj.target.textContent);
     schedule = eventObj.target.dataset.type;
 });
 
-$('.submit').on('click', function (eventObj){
+// load selected schedule with hours
+$('.submit').on('click', function (){
     //$("#dropdownMenuButton").text(eventObj.target.textContent);
     //let schedule = eventObj.target.dataset.type;
     console.log("clicked!")
     console.log(schedule)
     const hours = $("#hours").val();
-    if(schedule){
+    if(schedule && hours){
         containerEl.html('');
-        buildRows(scheduleType[schedule], hours||1);
+        buildRows(scheduleType[schedule], hours);
     }
+    addSaveBtnEvent();
 });
-
-let toSave;
-$(".save-btn").on('click', (eventObj)=>{
-    const index = eventObj.target.dataset.index;
-    const info = document.querySelectorAll(".description");
-    for (let i = 0; i < info.length+9; i++) {
-        if(info[i].dataset.index===index){
-            toSave = info[i].value;
-            console.log(info[i]);
-            console.log(toSave);
-            return
-        }
-    }
-})
