@@ -32,7 +32,8 @@ function addTimeBlock (type="", hr=0, index=hr){
 
     // variable to keep track of the hour from the start of the day
     let dataIndex = index;
-    if(type === scheduleType.now) {dataIndex = index+12;}
+    console.log(dataIndex)
+    if(type === scheduleType.now && dayjs().format('h')>0 && dayjs().format("A") ==="PM") {dataIndex = dataIndex+12;}
     
     const descriptionEl = $("<textarea>");
     descriptionEl.addClass("description");
@@ -59,8 +60,6 @@ function buildRows(type="", hours=1, index = 0, startTime=0) {
                 break;
             case scheduleType.now:
                 const dayJsHour = parseInt(dayjs().format('h'));
-                /* const nowStart = am_pm==="PM" ? dayJsHour+12 : dayJsHour;
-                startTime=nowStart; */
                 startTime=dayJsHour;
                 break;
             default:

@@ -21,14 +21,16 @@ function addSaveBtnEvent(){
 
 //loadFromLocal();
 function loadFromLocal(){
+    // get correct key. current date.
     let today = dayjs().format('DD/MM/YYYY');
+    // if there's any saved data for today.
     if(localStorage.getItem(today)){
         console.log(`today exists`);
         let data = JSON.parse(localStorage.getItem(today));
         const description = document.querySelectorAll(".description");
         console.log(description.length)
         // loop through length of stored data
-        /* for(let i=0; i<Object.keys(data).length; i++){
+        for(let i=0; i<Object.keys(data).length; i++){
             // loop to find data index in description.
             for(let x=0; Object.keys(data)[i]; x++){
                 let key = Object.keys(data)[i];
@@ -38,8 +40,9 @@ function loadFromLocal(){
                 }
             }
             description[Object.keys(data)[i]].textContent = Object.values(data)[i];
-        } */
+        }
     }
+    // if there's no saved data for today.
     else {
         console.log(`today does NOT exist`);
     }
