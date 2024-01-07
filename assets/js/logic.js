@@ -19,6 +19,32 @@ function addSaveBtnEvent(){
     })
 }
 
+//loadFromLocal();
+function loadFromLocal(){
+    let today = dayjs().format('DD/MM/YYYY');
+    if(localStorage.getItem(today)){
+        console.log(`today exists`);
+        let data = JSON.parse(localStorage.getItem(today));
+        const description = document.querySelectorAll(".description");
+        console.log(description.length)
+        // loop through length of stored data
+        /* for(let i=0; i<Object.keys(data).length; i++){
+            // loop to find data index in description.
+            for(let x=0; Object.keys(data)[i]; x++){
+                let key = Object.keys(data)[i];
+                let dataIndex = description[x].dataset.index;
+                if(dataIndex===key){
+                    description[x].textContent = Object
+                }
+            }
+            description[Object.keys(data)[i]].textContent = Object.values(data)[i];
+        } */
+    }
+    else {
+        console.log(`today does NOT exist`);
+    }
+}
+
 // saving data to local storage;
 function saveToLocal(memo, index) {
     let data;
