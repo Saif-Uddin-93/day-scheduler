@@ -115,7 +115,7 @@ header {
   align-items: center;
   flex-direction: column;
   position: absolute;
-  top: 37%;
+  /* top: 37%; */
   left: 10%;
   & #datepicker{
     position: relative;
