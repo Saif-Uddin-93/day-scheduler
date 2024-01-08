@@ -35,7 +35,7 @@ function loadFromLocal(customDate){
     //let today// = dayjs().format('DD/MM/YYYY');
     // if there's any saved data for today.
     if(localStorage.getItem(customDate)){
-        console.log(`today exists`);
+        console.log(`today exists`, customDate);
         let data = JSON.parse(localStorage.getItem(customDate));
         dataKeys = Object.keys(data);
         dataValues = Object.values(data);
@@ -56,7 +56,7 @@ function loadFromLocal(customDate){
     // if there's no saved data for custom date.
     else {
         console.log(`no saved data for custom date`);
-        submit();
+        //submit();
     }
 }
 
@@ -78,29 +78,33 @@ $('.dropdown-item').on('click', function (eventObj){
 });
 
 // load selected schedule with hours
-$('.submit').on('click', submit())
+//$('.submit').on('click', submit())
+$('.submit').on('click', ()=>{
+    submit();
+})
 function submit (){
     console.log("clicked!")
     console.log("schedule:", schedule)
     console.log($("#hours").val());
     const hours = ()=>{
-        let remainingHours = $("#hours").val() || 24 - (dayjs().format("A") ==="PM" ? parseInt(dayjs().format('h')) + 12 : parseInt(dayjs().format('h')))
-        if (schedule == scheduleType.day) remainingHours = 24;
+        let remainingHours = parseInt($("#hours").val()) || 24 - (dayjs().format("A") ==="PM" ? parseInt(dayjs().format('h')) + 12 : parseInt(dayjs().format('h')))
+        if (schedule == scheduleType.day && !parseInt($("#hours").val())) remainingHours = 24;
         return remainingHours;
     };
     console.log("remaining hours: "+hours())
     
-    if(schedule && hours()){
-        // if schedule and hours selected, load selected schedule
-        containerEl.html('');
-        buildRows(scheduleType[schedule], hours());
-        addSaveBtnEvent();
+    // load selected schedule or default to business schedule
+    if(!schedule){
+        schedule = scheduleType.business;
     }
-
+    containerEl.html('');
+    buildRows(scheduleType[schedule], hours());
+    addSaveBtnEvent();
+    
     // by default, load save data. default date is for current day.
     customDate = $("#datepicker").val()
     if(!customDate) {
-        customDate = dayjs().format('DD/MM/YYYY')
+        customDate = dayjs().format('DD/MM/YYYY');
     }
     loadFromLocal(customDate);
 };
