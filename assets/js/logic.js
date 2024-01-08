@@ -1,3 +1,8 @@
+$("#datepicker").datepicker({
+    dateFormat: "dd/mm/yy"
+});
+let customDate;
+
 addSaveBtnEvent();
 // add event listener. save day description with correct index
 //let toSave;
@@ -12,16 +17,17 @@ function addSaveBtnEvent(){
                 let toSave = description[i].value;
                 console.log(description[i]);
                 console.log(toSave);
-                saveToLocal(toSave, saveIndex);
+                console.log(customDate);
+                customDate = $("#datepicker").val()
+                if(!customDate) {
+                    customDate = dayjs().format('DD/MM/YYYY')
+                }
+                saveToLocal(toSave, saveIndex, customDate);
                 return
             }
         }
     })
 }
-
-$("#datepicker").datepicker({
-    dateFormat: "dd/mm/yy"
-});
 
 loadFromLocal(dayjs().format('DD/MM/YYYY'));
 function loadFromLocal(customDate){
@@ -50,18 +56,18 @@ function loadFromLocal(customDate){
     // if there's no saved data for custom date.
     else {
         console.log(`no saved data for custom date`);
-
+        submit();
     }
 }
 
 // saving data to local storage;
-function saveToLocal(memo, index) {
+function saveToLocal(memo, index, date=dayjs().format('DD/MM/YYYY')) {
     let data;
-    let today = dayjs().format('DD/MM/YYYY');
-    if(!localStorage.getItem(today)) data={}
-    else data = JSON.parse(localStorage.getItem(today));
+    //let today = dayjs().format('DD/MM/YYYY');
+    if(!localStorage.getItem(date)) data={}
+    else data = JSON.parse(localStorage.getItem(date));
     data[index] = memo;
-    localStorage.setItem(today, JSON.stringify(data));
+    localStorage.setItem(date, JSON.stringify(data));
 }
 
 // get schedule from dropdown list
@@ -72,9 +78,10 @@ $('.dropdown-item').on('click', function (eventObj){
 });
 
 // load selected schedule with hours
-$('.submit').on('click', function (){
+$('.submit').on('click', submit())
+function submit (){
     console.log("clicked!")
-    console.log(schedule)
+    console.log("schedule:", schedule)
     console.log($("#hours").val());
     const hours = ()=>{
         let remainingHours = $("#hours").val() || 24 - (dayjs().format("A") ==="PM" ? parseInt(dayjs().format('h')) + 12 : parseInt(dayjs().format('h')))
@@ -84,14 +91,16 @@ $('.submit').on('click', function (){
     console.log("remaining hours: "+hours())
     
     if(schedule && hours()){
+        // if schedule and hours selected, load selected schedule
         containerEl.html('');
         buildRows(scheduleType[schedule], hours());
+        addSaveBtnEvent();
     }
-    addSaveBtnEvent();
-    let customDate = $("#datepicker").val();
+
+    // by default, load save data. default date is for current day.
+    customDate = $("#datepicker").val()
     if(!customDate) {
         customDate = dayjs().format('DD/MM/YYYY')
     }
     loadFromLocal(customDate);
-});
-
+};
