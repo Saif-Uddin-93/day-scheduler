@@ -19,7 +19,7 @@ function addSaveBtnEvent(){
     })
 }
 
-//loadFromLocal();
+loadFromLocal();
 function loadFromLocal(){
     // get correct key. current date.
     let today = dayjs().format('DD/MM/YYYY');
@@ -27,19 +27,20 @@ function loadFromLocal(){
     if(localStorage.getItem(today)){
         console.log(`today exists`);
         let data = JSON.parse(localStorage.getItem(today));
+        dataKeys = Object.keys(data);
+        dataValues = Object.values(data);
+        let dataIndex=0;
         const description = document.querySelectorAll(".description");
         console.log(description.length)
+        console.log(dataKeys[dataIndex], "not found yet")
         // loop through length of stored data
-        for(let i=0; i<Object.keys(data).length; i++){
-            // loop to find data index in description.
-            for(let x=0; Object.keys(data)[i]; x++){
-                let key = Object.keys(data)[i];
-                let dataIndex = description[x].dataset.index;
-                if(dataIndex===key){
-                    description[x].textContent = Object
-                }
+        for(let i=0; i<description.length; i++){
+            if(parseInt(description[i].dataset.index)===parseInt(dataKeys[dataIndex])){
+                console.log(dataKeys[dataIndex], "found")
+                description[i].textContent = dataValues[dataIndex];
+                dataIndex++;
+                if (dataIndex===dataKeys.length)return
             }
-            description[Object.keys(data)[i]].textContent = Object.values(data)[i];
         }
     }
     // if there's no saved data for today.
@@ -67,8 +68,6 @@ $('.dropdown-item').on('click', function (eventObj){
 
 // load selected schedule with hours
 $('.submit').on('click', function (){
-    //$("#dropdownMenuButton").text(eventObj.target.textContent);
-    //let schedule = eventObj.target.dataset.type;
     console.log("clicked!")
     console.log(schedule)
     const hours = $("#hours").val();
@@ -77,4 +76,5 @@ $('.submit').on('click', function (){
         buildRows(scheduleType[schedule], hours);
     }
     addSaveBtnEvent();
+    loadFromLocal();
 });

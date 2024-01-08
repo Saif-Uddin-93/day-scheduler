@@ -33,9 +33,10 @@ function addTimeBlock (type="", hr=0, index=hr){
     // variable to keep track of the hour from the start of the day
     let dataIndex = index;
     console.log(dataIndex)
-    if(type === scheduleType.now && dayjs().format('h')>0 && dayjs().format("A") ==="PM") {dataIndex = dataIndex+12;}
+    if(type === scheduleType.now && dayjs().format("A") ==="PM") {dataIndex = dataIndex+12;}
     
     const descriptionEl = $("<textarea>");
+    descriptionEl.attr("id", "description "+dataIndex);
     descriptionEl.addClass("description");
     descriptionEl.attr("data-index", dataIndex);
     descriptionEl.text("Add memo");
