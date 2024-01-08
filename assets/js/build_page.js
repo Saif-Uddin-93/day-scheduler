@@ -5,7 +5,7 @@ const containerEl = $("#container");
 {
     if(hour<12){return "AM"} else {return "PM"}
 } */
-let am_pm = dayjs().format("A");
+let am_pm = "AM"
 
 function addTimeBlock (type="", hr=0, index=hr){
     const row = $("<div>");
@@ -18,13 +18,12 @@ function addTimeBlock (type="", hr=0, index=hr){
     hourEl.addClass("hour");
 
     if (hr<12)am_pm="AM"
-    if (type===scheduleType.now && hr<13) am_pm = dayjs().format("A");
+    if (type===scheduleType.now && hr<12) am_pm = dayjs().format("A");
     while(hr>12)
     {hr=hr-12}
     hourEl.text(()=>{
         let hour = parseInt(dayjs().format('h'))+hr;
         hour = hr || 12;
-        while(hour>12) hour=hour
         if (hour===12 && hr !== 0) am_pm = am_pm==="AM"?"PM":"AM"
         return `${hr||12}${am_pm}`
     });
