@@ -110,6 +110,19 @@ header {
   /* top: 8.5rem; */
 }
 
+.calendar {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  top: 37%;
+  left: 10%;
+  & #datepicker{
+    position: relative;
+    top: 1.5rem;
+  }
+}
+
 /* .saveBtn i:hover {
   font-size: 20px;
   transition: all 0.3s ease-in-out;

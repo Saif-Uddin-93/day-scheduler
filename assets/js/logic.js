@@ -19,14 +19,18 @@ function addSaveBtnEvent(){
     })
 }
 
-loadFromLocal();
-function loadFromLocal(){
+$("#datepicker").datepicker({
+    dateFormat: "dd/mm/yy"
+});
+
+loadFromLocal(dayjs().format('DD/MM/YYYY'));
+function loadFromLocal(customDate){
     // get correct key. current date.
-    let today = dayjs().format('DD/MM/YYYY');
+    //let today// = dayjs().format('DD/MM/YYYY');
     // if there's any saved data for today.
-    if(localStorage.getItem(today)){
+    if(localStorage.getItem(customDate)){
         console.log(`today exists`);
-        let data = JSON.parse(localStorage.getItem(today));
+        let data = JSON.parse(localStorage.getItem(customDate));
         dataKeys = Object.keys(data);
         dataValues = Object.values(data);
         let dataIndex=0;
@@ -43,9 +47,10 @@ function loadFromLocal(){
             }
         }
     }
-    // if there's no saved data for today.
+    // if there's no saved data for custom date.
     else {
-        console.log(`today does NOT exist`);
+        console.log(`no saved data for custom date`);
+
     }
 }
 
@@ -70,11 +75,23 @@ $('.dropdown-item').on('click', function (eventObj){
 $('.submit').on('click', function (){
     console.log("clicked!")
     console.log(schedule)
-    const hours = $("#hours").val();
-    if(schedule && hours){
+    console.log($("#hours").val());
+    const hours = ()=>{
+        let remainingHours = $("#hours").val() || 24 - (dayjs().format("A") ==="PM" ? parseInt(dayjs().format('h')) + 12 : parseInt(dayjs().format('h')))
+        if (schedule == scheduleType.day) remainingHours = 24;
+        return remainingHours;
+    };
+    console.log("remaining hours: "+hours())
+    
+    if(schedule && hours()){
         containerEl.html('');
-        buildRows(scheduleType[schedule], hours);
+        buildRows(scheduleType[schedule], hours());
     }
     addSaveBtnEvent();
-    loadFromLocal();
+    let customDate = $("#datepicker").val();
+    if(!customDate) {
+        customDate = dayjs().format('DD/MM/YYYY')
+    }
+    loadFromLocal(customDate);
 });
+
