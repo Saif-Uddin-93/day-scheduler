@@ -17,33 +17,29 @@ function addTimeBlock (type="", hr=0, index=hr){
     const hourEl = $("<div>");
     hourEl.addClass("hour");
 
-    if (type!==scheduleType.now && hr<12)am_pm="AM" ////////////////////////
+    if (hr<12)am_pm="AM"
+    if (type===scheduleType.now && hr<13) am_pm = dayjs().format("A");
     while(hr>12)
     {hr=hr-12}
     hourEl.text(()=>{
         let hour = parseInt(dayjs().format('h'))+hr;
-        if(type!==scheduleType.now) hour = hr || 12;
-        while(hour>12) hour=hour-12
-        if (hour===12 && hr !== 0) am_pm = am_pm==="AM"?"PM":"AM" /////////
-        hr=type===scheduleType.now?hour:hr
+        hour = hr || 12;
+        while(hour>12) hour=hour
+        if (hour===12 && hr !== 0) am_pm = am_pm==="AM"?"PM":"AM"
         return `${hr||12}${am_pm}`
     });
     timeBlock.append(hourEl);
 
     // variable to keep track of the hour from the start of the day
     let dataIndex = index;
-   
-    if (type===scheduleType.now && am_pm == "AM") {
-        dataIndex = index + parseInt(dayjs().format('h'));
-    }
-    if (type===scheduleType.now && am_pm == "PM") { 
-        dataIndex = index + parseInt(dayjs().format('h')) + 12;
-    }
+    console.log(dataIndex)
+    if(type === scheduleType.now && dayjs().format("A") ==="PM") {dataIndex = dataIndex+12;}
     
     const descriptionEl = $("<textarea>");
+    descriptionEl.attr("id", "description "+dataIndex);
     descriptionEl.addClass("description");
     descriptionEl.attr("data-index", dataIndex);
-    descriptionEl.text("DESCRIPTION");
+    descriptionEl.text("Add memo");
     timeBlock.append(descriptionEl);
     
     const saveEl = $("<button>");
@@ -56,18 +52,21 @@ function addTimeBlock (type="", hr=0, index=hr){
     return row
 }
 
-function buildRows(type="", hours=1, index = 0) {
+function buildRows(type="", hours=1, index = 0, startTime=0) {
     if(index<hours){
         switch(type){
             case scheduleType.business:
-                const startTime=9;
-                hours = startTime;
-                containerEl.append(addTimeBlock(type, index+startTime))
+                startTime=9;
+                hours = 9;
+                break;
+            case scheduleType.now:
+                const dayJsHour = parseInt(dayjs().format('h'));
+                startTime=dayJsHour;
                 break;
             default:
-                containerEl.append(addTimeBlock(type, index))
                 break;
         }
+        containerEl.append(addTimeBlock(type, index+startTime))
         // build next row and increment index
         buildRows(type, hours, index+1)
     }

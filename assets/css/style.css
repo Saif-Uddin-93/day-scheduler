@@ -92,7 +92,7 @@ header {
   margin: 0.4rem;
 }
 
-.dropdown {
+.schedule-container {
   margin-bottom: 1rem;
   & #dropdownMenuButton{
     min-width: 7.5rem;
