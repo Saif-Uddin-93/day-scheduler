@@ -31,24 +31,24 @@ function addSaveBtnEvent(){
     })
 }
 
-loadFromLocal(dayjs().format('DD/MM/YYYY'));
-function loadFromLocal(customDate){
+loadFromLocal(customDate());
+function loadFromLocal(saveInfo){
     // get correct key. current date.
     //let today// = dayjs().format('DD/MM/YYYY');
     // if there's any saved data for today.
-    if(localStorage.getItem(customDate)){
-        console.log(`today exists`, customDate);
-        let data = JSON.parse(localStorage.getItem(customDate));
+    if(localStorage.getItem(saveInfo)){
+        console.log(`saved info exists`, saveInfo);
+        let data = JSON.parse(localStorage.getItem(saveInfo));
         dataKeys = Object.keys(data);
         dataValues = Object.values(data);
         let dataIndex=0;
         const description = $(".description");
-        console.log(description.length)
-        console.log(dataKeys[dataIndex], "not found yet")
+        //console.log(description.length)
+        //console.log(dataKeys[dataIndex], "not found yet")
         // loop through length of stored data
         for(let i=0; i<description.length; i++){
             if(parseInt(description[i].dataset.index)===parseInt(dataKeys[dataIndex])){
-                console.log(dataKeys[dataIndex], "found")
+                //console.log(dataKeys[dataIndex], "found")
                 description[i].textContent = dataValues[dataIndex];
                 dataIndex++;
                 if (dataIndex===dataKeys.length)return
@@ -57,7 +57,7 @@ function loadFromLocal(customDate){
     }
     // if there's no saved data for custom date.
     else {
-        console.log(`no saved data for custom date`);
+        console.log(`no saved data for ${customDate()}`);
     }
 }
 
@@ -84,7 +84,7 @@ $('.submit').on('click', ()=>{
     submit();
 })
 function submit (){
-    console.log("clicked!")
+    console.log("submitted!")
     console.log("schedule:", schedule)
     //console.log($("#hours").val());
     
@@ -108,8 +108,8 @@ function colourCode(date) {
     const presentAMPM = dayjs().format("A");
     const displayedHours = $(".hour");
     const displayedDescription = $(".description");
-    console.log(parseInt(dayjs().format('YYYYMMDD')));
-    console.log(parseInt(date));
+    //console.log(parseInt(dayjs().format('YYYYMMDD')));
+    //console.log(parseInt(date));
     if(date === dayjs().format('YYYYMMDD')){
         console.log(presentHour+presentAMPM);
         let present;
