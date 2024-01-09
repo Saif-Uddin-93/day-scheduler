@@ -1,7 +1,10 @@
 $("#datepicker").datepicker({
     dateFormat: "dd/mm/yy"
 });
-let customDate;
+let customDate = ()=> {
+    let date = $("#datepicker").val();
+    return !date ? dayjs().format('DD/MM/YYYY') : date;
+};
 
 addSaveBtnEvent();
 // add event listener. save day description with correct index
@@ -17,12 +20,8 @@ function addSaveBtnEvent(){
                 let toSave = description[i].value;
                 console.log(description[i]);
                 console.log(toSave);
-                console.log(customDate);
-                customDate = $("#datepicker").val()
-                if(!customDate) {
-                    customDate = dayjs().format('DD/MM/YYYY')
-                }
-                saveToLocal(toSave, saveIndex, customDate);
+                console.log(customDate());
+                saveToLocal(toSave, saveIndex, customDate());
                 return
             }
         }
@@ -56,7 +55,6 @@ function loadFromLocal(customDate){
     // if there's no saved data for custom date.
     else {
         console.log(`no saved data for custom date`);
-        //submit();
     }
 }
 
@@ -102,9 +100,28 @@ function submit (){
     addSaveBtnEvent();
     
     // by default, load save data. default date is for current day.
-    customDate = $("#datepicker").val()
-    if(!customDate) {
-        customDate = dayjs().format('DD/MM/YYYY');
-    }
-    loadFromLocal(customDate);
+    loadFromLocal(customDate());
 };
+colourCode()
+function colourCode() {
+    // date, hour and am/pm needs to match
+    const presentHour = dayjs().format("h");
+    const presentAMPM = dayjs().format("A");
+    const displayedHours = $(".hour");
+    const displayedDescription = $(".description");
+    console.log(presentHour+presentAMPM);
+    let present;
+    for(let i=0; i<displayedHours.length; i++){
+        if(displayedHours[i].textContent !== presentHour+presentAMPM && present
+            ===undefined){
+            displayedDescription[i].classList.add("past");
+        }
+        if(displayedHours[i].textContent === presentHour+presentAMPM){
+            displayedDescription[i].classList.add("present");
+            present=i;
+        }
+        if(displayedHours[i].textContent !== presentHour+presentAMPM && present!==undefined){
+            displayedDescription[i].classList.add("future");
+        }
+    }
+}
