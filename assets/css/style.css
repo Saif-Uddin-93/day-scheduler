@@ -27,6 +27,10 @@ header {
   padding-bottom: 50px;
 }
 
+.container {
+  margin-bottom: 5rem;
+}
+
 .description {
   white-space: pre-wrap;
   width: 60vw;
@@ -95,32 +99,39 @@ header {
 
 .schedule-container {
   margin-bottom: 1rem;
-  & #dropdownMenuButton{
-    min-width: 7.5rem;
-  }
+  display: flex;
+  flex-direction: row !important;
+  justify-content: center;
   & button, label{
     margin-top: 1rem;
     width: fit-content;
-    padding-left: 0.4rem;
-    padding-right: 0.4rem;
   }
-  & button {
+  & #dropdownMenuButton{
+    min-width: 7.5rem;
     padding: 0.4rem;
-    width: fit-content;
   }
-  /* top: 8.5rem; */
-}
-
-.calendar {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  position: absolute;
-  /* top: 37%; */
-  left: 10%;
-  & #datepicker{
+  & .submit{
+    padding: 1rem;
+    margin: 1rem;
+    margin-top: 3rem;
+  }
+  & .schedule-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    margin: 1rem;
+    
+  }
+  & .calendar {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     position: relative;
-    top: 1.5rem;
+    margin: 1rem;
+    & input{
+      margin-top: 1rem;
+    }
   }
 }
 
@@ -134,6 +145,17 @@ header {
 }
 
 @media (width < 431px){
+  .schedule-container{
+    flex-direction: column !important;
+    & .schedule-form{
+      margin-bottom: 0.4rem;
+    }
+    & .submit {
+      margin-top: 2.5rem;
+      margin-bottom: 0;
+    }
+  }
+
   .calendar {
     position: relative;
     left: 0;
@@ -150,4 +172,6 @@ header {
   .description{
     height: auto;
   }
+
+  
 }
