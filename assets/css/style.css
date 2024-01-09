@@ -24,6 +24,7 @@ header {
   border-radius: 0;
   border-bottom: 10px solid black;
   padding: 60px;
+  padding-bottom: 50px;
 }
 
 .description {

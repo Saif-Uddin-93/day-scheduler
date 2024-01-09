@@ -2,8 +2,11 @@ $("#datepicker").datepicker({
     dateFormat: "dd/mm/yy"
 });
 let customDate = ()=> {
+    let year = dayjs().format("YYYY");
+    let month = dayjs().format("MM");
+    let day = dayjs().format("DD");
     let date = $("#datepicker").val();
-    return !date ? dayjs().format('DD/MM/YYYY') : date;
+    return !date ? year+month+day : date.substring(6,10)+date.substring(3,5)+date.substring(0,2);
 };
 
 addSaveBtnEvent();
@@ -98,30 +101,42 @@ function submit (){
     containerEl.html('');
     buildRows(scheduleType[schedule], hours());
     addSaveBtnEvent();
-    
     // by default, load save data. default date is for current day.
     loadFromLocal(customDate());
+    colourCode(customDate())
 };
-colourCode()
-function colourCode() {
-    // date, hour and am/pm needs to match
+
+colourCode(customDate())
+function colourCode(date) {
     const presentHour = dayjs().format("h");
     const presentAMPM = dayjs().format("A");
     const displayedHours = $(".hour");
     const displayedDescription = $(".description");
-    console.log(presentHour+presentAMPM);
-    let present;
-    for(let i=0; i<displayedHours.length; i++){
-        if(displayedHours[i].textContent !== presentHour+presentAMPM && present
-            ===undefined){
-            displayedDescription[i].classList.add("past");
-        }
-        if(displayedHours[i].textContent === presentHour+presentAMPM){
-            displayedDescription[i].classList.add("present");
-            present=i;
-        }
-        if(displayedHours[i].textContent !== presentHour+presentAMPM && present!==undefined){
-            displayedDescription[i].classList.add("future");
+    console.log(parseInt(dayjs().format('YYYYMMDD')));
+    console.log(parseInt(date));
+    if(date === dayjs().format('YYYYMMDD')){
+        console.log(presentHour+presentAMPM);
+        let present;
+        for(let i=0; i<displayedHours.length; i++){
+            if(displayedHours[i].textContent !== presentHour+presentAMPM && present
+                ===undefined){
+                displayedDescription[i].classList.add("past");
+            }
+            if(displayedHours[i].textContent === presentHour+presentAMPM){
+                displayedDescription[i].classList.add("present");
+                present=i;
+            }
+            if(displayedHours[i].textContent !== presentHour+presentAMPM && present!==undefined){
+                displayedDescription[i].classList.add("future");
+            }
         }
     }
+    else if (parseInt(date) < parseInt(dayjs().format('YYYYMMDD'))){
+        for(let i=0; i<displayedHours.length; i++) displayedDescription[i].classList.add("past");
+    }
+    else if (parseInt(date) > parseInt(dayjs().format('YYYYMMDD'))){
+        for(let i=0; i<displayedHours.length; i++) displayedDescription[i].classList.add("future");
+    }
 }
+
+$("#currentDay").html("Today is: " + dayjs().format("dddd") + "<br>" + dayjs().format(dayjs().format('DD/MM/YYYY')));
