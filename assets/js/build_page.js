@@ -81,7 +81,7 @@ function hours (schedule){
     let remainingHours = /* parseInt($("#hours").val()) || */ 24 - (dayjs().format("A") ==="PM" ? parseInt(dayjs().format('h')) + 12 : parseInt(dayjs().format('h')))
     if (schedule == scheduleType.day /* && !parseInt($("#hours").val()) */) remainingHours = 24;
     if (schedule == scheduleType.business /* && !parseInt($("#hours").val()) */) remainingHours = 9;
-    console.log(remainingHours);
+    //console.log(remainingHours);
     return remainingHours;
 };
 
