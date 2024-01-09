@@ -16,7 +16,7 @@ function addSaveBtnEvent(){
     $('.save-btn').on('click', (eventObj)=>{
         console.log("save");
         const saveIndex = parseInt(eventObj.target.dataset.index);
-        const description = document.querySelectorAll(".description");
+        const description = $(".description");
         for (let i = 0; i < Infinity; i++) {
             const descriptionIndex = parseInt(description[i].dataset.index);
             if(descriptionIndex===saveIndex){
@@ -42,7 +42,7 @@ function loadFromLocal(customDate){
         dataKeys = Object.keys(data);
         dataValues = Object.values(data);
         let dataIndex=0;
-        const description = document.querySelectorAll(".description");
+        const description = $(".description");
         console.log(description.length)
         console.log(dataKeys[dataIndex], "not found yet")
         // loop through length of stored data
@@ -86,20 +86,16 @@ $('.submit').on('click', ()=>{
 function submit (){
     console.log("clicked!")
     console.log("schedule:", schedule)
-    console.log($("#hours").val());
-    const hours = ()=>{
-        let remainingHours = parseInt($("#hours").val()) || 24 - (dayjs().format("A") ==="PM" ? parseInt(dayjs().format('h')) + 12 : parseInt(dayjs().format('h')))
-        if (schedule == scheduleType.day && !parseInt($("#hours").val())) remainingHours = 24;
-        return remainingHours;
-    };
-    console.log("remaining hours: "+hours())
+    //console.log($("#hours").val());
+    
+    console.log("remaining hours: "+hours(schedule))
     
     // load selected schedule or default to business schedule
     if(!schedule){
         schedule = scheduleType.business;
     }
     containerEl.html('');
-    buildRows(scheduleType[schedule], hours());
+    buildRows(scheduleType[schedule], hours(schedule));
     addSaveBtnEvent();
     // by default, load save data. default date is for current day.
     loadFromLocal(customDate());

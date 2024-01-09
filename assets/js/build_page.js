@@ -51,12 +51,12 @@ function addTimeBlock (type="", hr=0, index=hr){
     return row
 }
 
-function buildRows(type="", hours=1, index = 0, startTime=0) {
-    if(index<hours){
+function buildRows(type="", time=1, index = 0, startTime=0) {
+    if(index<hours(type)){
         switch(type){
             case scheduleType.business:
                 startTime=9;
-                hours = 9;
+                //hours = 9;
                 break;
             case scheduleType.now:
                 const dayJsHour = parseInt(dayjs().format('h'));
@@ -67,7 +67,7 @@ function buildRows(type="", hours=1, index = 0, startTime=0) {
         }
         containerEl.append(addTimeBlock(type, index+startTime))
         // build next row and increment index
-        buildRows(type, hours, index+1)
+        buildRows(type, hours(type), index+1)
     }
 }
 
@@ -76,5 +76,13 @@ const scheduleType = {
     day:"day",
     now:"now",
 }
+
+function hours (schedule){
+    let remainingHours = /* parseInt($("#hours").val()) || */ 24 - (dayjs().format("A") ==="PM" ? parseInt(dayjs().format('h')) + 12 : parseInt(dayjs().format('h')))
+    if (schedule == scheduleType.day /* && !parseInt($("#hours").val()) */) remainingHours = 24;
+    if (schedule == scheduleType.business /* && !parseInt($("#hours").val()) */) remainingHours = 9;
+    console.log(remainingHours);
+    return remainingHours;
+};
 
 buildRows(scheduleType.business);

@@ -36,20 +36,22 @@
         <label for="datepicker">Calendar</label>
         <input type="text" class="form-control" id="datepicker" autocomplete="off" />
       </div>
-      <Label for="dropdownMenuButton">Schedule Types:</Label>
-      <div class="d-flex align-items-center">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <div class="d-flex align-items-center schedule-form">
+        <div class="schedule-button">
+          <Label for="dropdownMenuButton">Schedule Types:</Label>
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Business
-        </button>
-        <ul class="dropdown-menu">
-            <li class="dropdown-item" data-type="business">Business</li>
-            <li class="dropdown-item" data-type="day">Day</li>
-            <li class="dropdown-item" data-type="now">From Now</li>
-        </ul>
-        <label for="hours" class="hours">hours: 
-          <input type="number" min=1 name="hours" id="hours" class="hours">
-          <button class="ms-2 submit">Submit</button>
-        </label>
+          </button>
+          <ul class="dropdown-menu">
+              <li class="dropdown-item" data-type="business">Business</li>
+              <li class="dropdown-item" data-type="day">Day</li>
+              <li class="dropdown-item" data-type="now">From Now</li>
+          </ul>
+        </div>
+        <!-- <label for="hours" class="hours"> --><!-- hours:  -->
+          <!-- <input type="number" min=1 name="hours" id="hours" class="hours"> -->
+          <button class="submit">Submit</button>
+        <!-- </label> -->
       </div>
     </div>
     <div id="container" class="container d-flex flex-wrap justify-content-center">
