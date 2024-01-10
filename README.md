@@ -43,6 +43,8 @@ For this project, the developer tool I'll be using is VS Code. A lightweight IDE
 The game can be displayed which each stage of the game show in the GIF below:
 
 ![A user clicks on slots on the color-coded calendar and edits the events.](./assets/images/demo.gif)
+
+Screenshot of the final application:
 ![Screenshot of final application](./assets/images/screenshot.png)
 
 Scores are saved on the browsers local storage so the player would need to delete them manually using the developer tool or by clearing cache.
