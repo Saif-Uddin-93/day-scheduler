@@ -44,17 +44,15 @@ function loadFromLocal(saveInfo){
         let data = JSON.parse(localStorage.getItem(saveInfo));
         dataKeys = Object.keys(data);
         dataValues = Object.values(data);
-        let dataIndex=0;
         const description = $(".description");
-        //console.log(description.length)
-        //console.log(dataKeys[dataIndex], "not found yet")
+        console.log(description[0].dataset.index);
         // loop through length of stored data
         for(let i=0; i<description.length; i++){
+            let dataIndex = dataKeys.indexOf(description[i].dataset.index)
+            console.log(parseInt(description[i].dataset.index), parseInt(dataKeys[dataIndex]))
             if(parseInt(description[i].dataset.index)===parseInt(dataKeys[dataIndex])){
-                //console.log(dataKeys[dataIndex], "found")
+                console.log(dataKeys[dataIndex], "found")
                 description[i].textContent = dataValues[dataIndex];
-                dataIndex++;
-                if (dataIndex===dataKeys.length)return
             }
         }
     }
