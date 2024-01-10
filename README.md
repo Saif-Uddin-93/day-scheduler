@@ -1,10 +1,30 @@
-# Third-Party APIs: Work Day Scheduler
+# Work Day Scheduler
 
-## Your Task
+## Description
 
-Create a simple calendar application that allows a user to save events for each hour of the day by modifying starter code. This app will run in the browser and feature dynamically updated HTML and CSS powered by jQuery.
+This project was created to create a work day scheduling app. The aim was to able to store notes for each hour of the day and be able add notes for future dates or look back at past notes. The project meets the following criteria:
 
-You'll need to use the [Day.js](https://day.js.org/docs/en/display/format) library to work with date and time. Be sure to read the documentation carefully and concentrate on using Day.js in the browser.
+* On loading/refreshing the page, the business hours for the current day is shown.
+* Any saved information is loaded if it exists.
+* Any past hours/dates, the descriptions are grey; the current hour on the present day is red; and any future hours/dates are green.
+* If the answer clicked was incorrect then subtract time from the clock
+* Able to select past and future dates with default as the present day.
+* All saved data is stored locally.
+
+The main things I've learned from this project are:
+
+* Gained practical experience with JQuery, JQuery UI and DayJS.
+* Pratice with writing more readable code.
+
+[Link to deployed web page.](https://saif-uddin-93.github.io/day-scheduler/)
+
+## Table of Contents
+
+- [User Story](#user-story)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Credits](#credits)
+- [License](#license)
 
 ## User Story
 
@@ -14,74 +34,34 @@ I WANT to add important events to a daily planner
 SO THAT I can manage my time effectively
 ```
 
-## Acceptance Criteria
+## Installation
 
-The app should:
+For this project, the developer tool I'll be using is VS Code. A lightweight IDE that allows working in JavaScript. It also allows the use of Extensions which can add extra functionality to the tool to help with debugging and making code more readable. The main extension I'll be using is called, Live Server, by Ritwick Dey. The browser that the web page will be used on is Google Chrome and will work on all Chromium-based web browsers. This project also includes the [Day.js](https://day.js.org/docs/en/display/format), JQuery, JQuery UI and Bootstrap frameworks.
 
-* Display the current day at the top of the calender when a user opens the planner.
- 
-* Present timeblocks for standard business hours when the user scrolls down.
- 
-* Color-code each timeblock based on past, present, and future when the timeblock is viewed.
- 
-* Allow a user to enter an event when they click a timeblock
+## Usage
 
-* Save the event in local storage when the save button is clicked in that timeblock.
+The game can be displayed which each stage of the game show in the GIF below:
 
-* Persist events between refreshes of a page
+![A user clicks on slots on the color-coded calendar and edits the events.](./assets/images/demo.gif)
+![Screenshot of final application](./assets/images/screenshot.png)
 
-The following animation demonstrates the application functionality:
+Scores are saved on the browsers local storage so the player would need to delete them manually using the developer tool or by clearing cache.
 
-![A user clicks on slots on the color-coded calendar and edits the events.](./assets/images/05-third-party-apis-homework-demo.gif)
+## Credits
 
+Assets in this projects belong to the edX organisers. All JavaScript in this project was written by myself.
 
-## Grading Requirements
+## License
+### MIT License
 
-This homework is graded based on the following criteria: 
+Copyright (c) 2023 Saif-Uddin-93
 
-### Technical Acceptance Criteria: 40%
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-* Satisfies all of the above acceptance criteria plus the following:
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-  * Uses a date utility library to work with date and time
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-### Deployment: 32%
+## Badges
 
-* Application deployed at live URL
-
-* Application loads with no errors
-
-* Application GitHub URL submitted
-
-* GitHub repo contains application code
-
-### Application Quality: 15%
-
-* Application user experience is intuitive and easy to navigate
-
-* Application user interface style is clean and polished
-
-* Application resembles the mock-up functionality provided in the homework instructions
-
-### Repository Quality: 13%
-
-* Repository has a unique name
-
-* Repository follows best practices for file structure and naming conventions
-
-* Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
-
-* Repository contains multiple descriptive commit messages
-
-* Repository contains quality README file with description, screenshot, and link to deployed application
-
-## Review
-
-You are required to submit the following for review:
-
-* The URL of the deployed application
-
-* The URL of the GitHub repository, with a unique name and a README describing the project
-
----
-© 2023 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.
+![badmath](https://img.shields.io/github/languages/top/lernantino/badmath)

@@ -7,16 +7,19 @@ const containerEl = $("#container");
 } */
 let am_pm = "AM"
 
+// creates each row for per hour
 function addTimeBlock (type="", hr=0, index=hr){
-    const row = $("<div>");
-    containerEl.append(row);
     
+    // contains the hour, description and save button for each row
     const timeBlock = $("<div>");
     timeBlock.addClass("time-block d-flex justify-content-center");
+    containerEl.append(timeBlock);
     
+    // displays hour and AM/PM
     const hourEl = $("<div>");
     hourEl.addClass("hour");
 
+    // changes AM/PM
     if (hr<12)am_pm="AM"
     if (type===scheduleType.now && hr<12) am_pm = dayjs().format("A");
     while(hr>12)
@@ -34,6 +37,7 @@ function addTimeBlock (type="", hr=0, index=hr){
     console.log(dataIndex)
     if(type === scheduleType.now && dayjs().format("A") ==="PM") {dataIndex = dataIndex+12;}
     
+    // textarea input for user to add information
     const descriptionEl = $("<textarea>");
     descriptionEl.attr("id", "description "+dataIndex);
     descriptionEl.addClass("description");
@@ -41,24 +45,26 @@ function addTimeBlock (type="", hr=0, index=hr){
     descriptionEl.text("Add memo");
     timeBlock.append(descriptionEl);
     
+    // save button to save memo with associated hour and date to local storage.
     const saveEl = $("<button>");
     saveEl.addClass("save-btn");
     saveEl.attr("data-index", dataIndex);
     saveEl.text("SAVE");
     timeBlock.append(saveEl);
 
-    row.append(timeBlock)
-    return row
+    return timeBlock
 }
 
-function buildRows(type="", time=1, index = 0, startTime=0) {
-    if(index<hours(type)){
+// tail-recursive loop to build rows of hours
+function buildRows(type, index=0, startTime=0) {
+    if(index < hours(type)){
         switch(type){
             case scheduleType.business:
+                // start time at 9AM
                 startTime=9;
-                //hours = 9;
                 break;
             case scheduleType.now:
+                // start time at the current hour in the day
                 const dayJsHour = parseInt(dayjs().format('h'));
                 startTime=dayJsHour;
                 break;
@@ -67,22 +73,27 @@ function buildRows(type="", time=1, index = 0, startTime=0) {
         }
         containerEl.append(addTimeBlock(type, index+startTime))
         // build next row and increment index
-        buildRows(type, hours(type), index+1)
+        buildRows(type, index+1)
     }
 }
 
+// schedule types
 const scheduleType = {
     business:"business",
     day:"day",
     now:"now",
 }
 
+// determines how many hours to load according to the chosen schedule
 function hours (schedule){
-    let remainingHours = /* parseInt($("#hours").val()) || */ 24 - (dayjs().format("A") ==="PM" ? parseInt(dayjs().format('h')) + 12 : parseInt(dayjs().format('h')))
+    const hoursInDay = 24;
+    // Subtract from 24 depending on, if PM, add 12 to the hour returned by dayjs, else, if AM return the hour as is from dayjs. If 12AM, return 24
+    let remainingHours = /* parseInt($("#hours").val()) || */ hoursInDay - (dayjs().format("A") ==="PM" ? parseInt(dayjs().format('h')) + 12 : parseInt(dayjs().format('h'))) || 24;
     if (schedule == scheduleType.day /* && !parseInt($("#hours").val()) */) remainingHours = 24;
     if (schedule == scheduleType.business /* && !parseInt($("#hours").val()) */) remainingHours = 9;
     //console.log(remainingHours);
     return remainingHours;
 };
 
+// initialise with business hours when page is refreshed or loads for the first time.
 buildRows(scheduleType.business);
