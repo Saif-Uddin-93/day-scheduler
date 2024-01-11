@@ -159,6 +159,8 @@ function updateLoop(cb){
     const remainingSecs = ((minsInHour - currentMin) * secsInMin)-currentSec // remaining seconds until the next hour.
     
     setTimeout(()=>{
+        console.log("callback is being called");
+        cb();
         setInterval(() => {
             console.log("callback is being called");
             cb();
