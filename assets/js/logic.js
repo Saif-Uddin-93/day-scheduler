@@ -107,7 +107,7 @@ function submit (){
     colourCode(customDate())
 };
 
-colourCode(customDate())
+//colourCode(customDate())
 function colourCode(date) {
     const presentHour = dayjs().format("h");
     const presentAMPM = dayjs().format("A");
@@ -147,3 +147,20 @@ function colourCode(date) {
 
 // display current date on the page.
 $("#currentDay").html("Today is: " + dayjs().format("dddd") + "<br>" + dayjs().format(dayjs().format('DD/MM/YYYY')));
+
+// gets called every new hour
+updateLoop(colourCode(customDate())); //colour code updates the classes for past/present/future hours
+function updateLoop(cb){
+    const minsInHour = 60; //60 minutes
+    const secsInMin = 60; //60 seconds
+    const secsInHour = secsInMin*minsInHour; //seconds in an hour
+    const currentMin = parseInt(dayjs().format(`mm`)); // minute of the current time
+    const currentSec = parseInt(dayjs().format(`ss`)); // second of the current time
+    const remainingSecs = ((minsInHour - currentMin) * secsInMin)-currentSec // remaining seconds until the next hour.
+    
+    setTimeout(()=>{
+        setInterval(() => {
+            cb();
+        }, secsInHour*1000);
+    }, remainingSecs*1000)
+}
