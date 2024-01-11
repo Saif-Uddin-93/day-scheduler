@@ -160,6 +160,7 @@ function updateLoop(cb){
     
     setTimeout(()=>{
         setInterval(() => {
+            console.log("callback is being called");
             cb();
         }, secsInHour*1000);
     }, remainingSecs*1000)
