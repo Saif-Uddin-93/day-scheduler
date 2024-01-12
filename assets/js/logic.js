@@ -106,9 +106,11 @@ function submit (){
     // add colour classes to rows representing past, present & future hours
     colourCode(customDate())
 };
-
+let track=0;
 //colourCode(customDate())
 function colourCode(date) {
+    track++;
+    console.log(track);
     const presentHour = dayjs().format("h");
     const presentAMPM = dayjs().format("A");
     const displayedHours = $(".hour"); // all hours on page
@@ -150,20 +152,20 @@ $("#currentDay").html("Today is: " + dayjs().format("dddd") + "<br>" + dayjs().f
 
 // gets called every new hour
 updateLoop(colourCode(customDate())); //colour code updates the classes for past/present/future hours
-function updateLoop(cb){
+function updateLoop(){
     const minsInHour = 60; //60 minutes
     const secsInMin = 60; //60 seconds
     const secsInHour = secsInMin*minsInHour; //seconds in an hour
     const currentMin = parseInt(dayjs().format(`mm`)); // minute of the current time
     const currentSec = parseInt(dayjs().format(`ss`)); // second of the current time
     const remainingSecs = ((minsInHour - currentMin) * secsInMin)-currentSec // remaining seconds until the next hour.
-    
+    console.log(`${remainingSecs} until Timeout cb is called`);
     setTimeout(()=>{
         console.log("callback is being called");
-        cb();
+        colourCode(customDate());
         setInterval(() => {
             console.log("callback is being called");
-            cb();
+            colourCode(customDate());
         }, secsInHour*1000);
     }, remainingSecs*1000)
 }
