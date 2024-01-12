@@ -154,14 +154,15 @@ function displayPresentDate(){
     $("#currentDay").html("Today is: " + dayjs().format("dddd") + "<br>" + dayjs().format(dayjs().format('DD/MM/YYYY')));
 }
 
-// gets called every new hour
-const loopToUpdate = [
-    colourCode(customDate()),
-    displayPresentDate(),
-]
-updateLoop(...loopToUpdate); //colour code updates the classes for past/present/future hours
-function updateLoop(...args){
-    for(method of args){method;}
+// functions to call every new hour
+function updateHourly() {
+    colourCode(customDate());
+    displayPresentDate();
+}
+
+updateLoop(); 
+function updateLoop(){
+    updateHourly();
     const minsInHour = 60; //60 minutes
     const secsInMin = 60; //60 seconds
     const secsInHour = secsInMin*minsInHour; //seconds in an hour
@@ -171,10 +172,10 @@ function updateLoop(...args){
     console.log(`${remainingSecs} seconds until Timeout callback is called`);
     setTimeout(()=>{
         console.log("callback is being called");
-        for(method of args){method;}
+        updateHourly();
         setInterval(() => {
             console.log("callback is being called");
-            for(method of args){method;}
+            updateHourly();
         }, secsInHour*1000);
     }, remainingSecs*1000)
 }
