@@ -106,7 +106,7 @@ function submit (){
     // add colour classes to rows representing past, present & future hours
     colourCode(customDate())
 };
-let track=0;
+let track=0; // keep track of number of times function is called
 //colourCode(customDate())
 function colourCode(date) {
     track++;
@@ -114,7 +114,7 @@ function colourCode(date) {
     const presentHour = dayjs().format("h");
     const presentAMPM = dayjs().format("A");
     const displayedHours = $(".hour"); // all hours on page
-    const displayedDescription = $(".description"); // all descriptions on page
+    const displayedDescriptions = $(".description"); // all descriptions on page
     // apply colour classes for schedules in the current day.
     if(date === dayjs().format('YYYYMMDD')){
         console.log(presentHour+presentAMPM);
@@ -123,27 +123,27 @@ function colourCode(date) {
         for(let i=0; i<displayedHours.length; i++){
             // if hour & AM/PM doesn't match with present hour & AM/PM, and present has not yet been defined, add "past" class
             if(displayedHours[i].textContent !== presentHour+presentAMPM && present===undefined){
-                displayedDescription[i].classList.add("past");
+                displayedDescriptions[i].classList.add("past");
             }
             // if hour & AM/PM matches with present hour & AM/PM, add "present" class
             if(displayedHours[i].textContent === presentHour+presentAMPM){
-                displayedDescription[i].classList.add("present");
+                displayedDescriptions[i].classList.add("present");
                 // define present
                 present=i;
             }
             // if hour & AM/PM doesn't match with present hour & AM/PM, and present has been defined, add "future" class
             if(displayedHours[i].textContent !== presentHour+presentAMPM && present!==undefined){
-                displayedDescription[i].classList.add("future");
+                displayedDescriptions[i].classList.add("future");
             }
         }
     }
     // else if date is less than the present date, apply "past" class
     else if (parseInt(date) < parseInt(dayjs().format('YYYYMMDD'))){
-        for(let i=0; i<displayedHours.length; i++) displayedDescription[i].classList.add("past");
+        for(let i=0; i<displayedHours.length; i++) displayedDescriptions[i].classList.add("past");
     }
     // else if date is greater than the present date, apply "future" class
     else if (parseInt(date) > parseInt(dayjs().format('YYYYMMDD'))){
-        for(let i=0; i<displayedHours.length; i++) displayedDescription[i].classList.add("future");
+        for(let i=0; i<displayedHours.length; i++) displayedDescriptions[i].classList.add("future");
     }
 }
 
