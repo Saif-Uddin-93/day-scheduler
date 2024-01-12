@@ -106,7 +106,7 @@ function submit (){
     // add colour classes to rows representing past, present & future hours
     colourCode(customDate())
 };
-let track=0; // keep track of number of times function is called
+let track=0; // FOR DEBUGGING. Keeping track of number of times function is called
 //colourCode(customDate())
 function colourCode(date) {
     track++;
@@ -123,10 +123,12 @@ function colourCode(date) {
         for(let i=0; i<displayedHours.length; i++){
             // if hour & AM/PM doesn't match with present hour & AM/PM, and present has not yet been defined, add "past" class
             if(displayedHours[i].textContent !== presentHour+presentAMPM && present===undefined){
+                displayedDescriptions[i].classList.remove("present");
                 displayedDescriptions[i].classList.add("past");
             }
             // if hour & AM/PM matches with present hour & AM/PM, add "present" class
             if(displayedHours[i].textContent === presentHour+presentAMPM){
+                displayedDescriptions[i].classList.remove("future");
                 displayedDescriptions[i].classList.add("present");
                 // define present
                 present=i;
@@ -159,7 +161,7 @@ function updateLoop(){
     const currentMin = parseInt(dayjs().format(`mm`)); // minute of the current time
     const currentSec = parseInt(dayjs().format(`ss`)); // second of the current time
     const remainingSecs = ((minsInHour - currentMin) * secsInMin)-currentSec // remaining seconds until the next hour.
-    console.log(`${remainingSecs} until Timeout cb is called`);
+    console.log(`${remainingSecs} seconds until Timeout callback is called`);
     setTimeout(()=>{
         console.log("callback is being called");
         colourCode(customDate());
