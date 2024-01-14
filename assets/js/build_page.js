@@ -42,7 +42,7 @@ function addTimeBlock (type="", hr=0, index=hr){
     descriptionEl.attr("id", "description "+dataIndex);
     descriptionEl.addClass("description");
     descriptionEl.attr("data-index", dataIndex);
-    descriptionEl.text("Add memo");
+    descriptionEl.attr("placeholder", "Add memo");
     timeBlock.append(descriptionEl);
     
     // save button to save memo with associated hour and date to local storage.
