@@ -40,7 +40,7 @@ For this project, the developer tool I'll be using is VS Code. A lightweight IDE
 
 ## Usage
 
-The game can be displayed which each stage of the game show in the GIF below:
+The calendar can display calendar events for selected dates as shown in the GIF below:
 
 ![A user clicks on slots on the color-coded calendar and edits the events.](./assets/images/demo.gif)
 
