@@ -7,7 +7,6 @@ This project was created to create a work day scheduling app. The aim was to abl
 * On loading/refreshing the page, the business hours for the current day is shown.
 * Any saved information is loaded if it exists.
 * Any past hours/dates, the descriptions are grey; the current hour on the present day is red; and any future hours/dates are green.
-* If the answer clicked was incorrect then subtract time from the clock
 * Able to select past and future dates with default as the present day.
 * All saved data is stored locally.
 
